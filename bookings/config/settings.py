@@ -87,6 +87,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # Media files (user uploads, if any)
 MEDIA_URL = 'media/'
@@ -98,4 +99,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Login redirect for admin
 LOGIN_REDIRECT_URL = '/admin/'
 LOGOUT_REDIRECT_URL = '/admin/'
+
 
