@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero section with salon promotions -->
+<section class="hero">
+  <div class="container text-center">
+    <span class="badge-promo d-inline-block mb-3">Limited Time – 20% Off Your First Visit</span>
+    <h1 class="display-5 fw-bold mb-3">Welcome to Serenity Salon & Spa</h1>
+    <p class="lead mb-4">Relax, rejuvenate, and look your best. Book your appointment online—no login required.</p>
+    <a href="{% url 'booking:book' %}" class="btn btn-primary-accent btn-lg px-4">
+      <i class="bi bi-calendar-check me-2"></i>Book an Appointment
+    </a>
+  </div>
+</section>
+
+<!-- Service categories – service cards with hover effects -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-2">Our Services</h2>
+    <p class="section-subtitle text-center mb-4">Choose from our range of treatments and packages.</p>
+
+    <div class="row g-4">
+      {% for category in categories %}
+      <div class="col-sm-6 col-lg-4">
+        <a href="{% url 'services:category_list' %}#{{ category.slug }}" class="text-decoration-none">
+          <div class="card card-service h-100">
+            <div class="card-body">
+              <div class="icon-wrap mb-3">
+                {% if category.icon %}
+                  <span>{{ category.icon }}</span>
+                {% else %}
+                  <i class="bi bi-star"></i>
+                {% endif %}
+              </div>
+              <h5 class="card-title">{{ category.name }}</h5>
+              <p class="card-text">{{ category.description|truncatewords:15|default:"Explore our "|add:category.name|add:" services." }}</p>
+              <span class="text-primary-accent small fw-semibold">View services <i class="bi bi-arrow-right"></i></span>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center text-muted py-4">
+        <p>Services will appear here once added in the admin.</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="{% url 'services:category_list' %}" class="btn btn-outline-secondary btn-lg">View All Services</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

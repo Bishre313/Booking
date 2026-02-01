@@ -1,0 +1,246 @@
+/*
+ * Serenity Salon & Spa – Custom branding
+ * Soft pastel / luxury color scheme, fully responsive
+ */
+
+:root {
+  --primary-accent: #b8868b;
+  --primary-accent-dark: #9a7176;
+  --secondary-pastel: #e8d5d8;
+  --bg-cream: #faf8f6;
+  --bg-light: #f5f0ee;
+  --text-dark: #4a4042;
+  --text-muted: #7a6d6f;
+  --luxury-gold: #c9a86c;
+  --white: #ffffff;
+  --shadow-soft: 0 4px 20px rgba(184, 134, 139, 0.12);
+  --shadow-hover: 0 8px 30px rgba(184, 134, 139, 0.18);
+  --navbar-height: 72px;
+}
+
+/* Body and typography */
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-cream);
+}
+
+.pt-navbar {
+  padding-top: var(--navbar-height);
+}
+
+/* Navbar branding */
+.navbar-brand.text-primary-accent {
+  color: var(--primary-accent) !important;
+  font-size: 1.35rem;
+}
+
+.nav-link {
+  color: var(--text-dark) !important;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem !important;
+}
+
+.nav-link:hover {
+  color: var(--primary-accent) !important;
+}
+
+/* Book Now button in navbar */
+.btn-book,
+.btn-primary-accent {
+  background-color: var(--primary-accent);
+  border-color: var(--primary-accent);
+  color: var(--white) !important;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-book:hover,
+.btn-primary-accent:hover {
+  background-color: var(--primary-accent-dark);
+  border-color: var(--primary-accent-dark);
+  color: var(--white) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Hero section */
+.hero {
+  background: linear-gradient(135deg, var(--secondary-pastel) 0%, var(--bg-light) 50%, rgba(232, 213, 216, 0.6) 100%);
+  padding: 4rem 0 5rem;
+  border-radius: 0 0 2rem 2rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.hero h1 {
+  color: var(--text-dark);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.hero .lead {
+  color: var(--text-muted);
+  font-size: 1.15rem;
+}
+
+.hero .badge-promo {
+  background-color: var(--luxury-gold);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Service cards with hover effects */
+.card-service {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  height: 100%;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.card-service:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-service .card-body {
+  padding: 1.5rem;
+}
+
+.card-service .card-title {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.card-service .card-text {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.card-service .icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--secondary-pastel);
+  color: var(--primary-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+/* Section headings */
+.section-title {
+  color: var(--text-dark);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* Booking form layout */
+.booking-form-wrap {
+  background: var(--white);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-soft);
+  padding: 2rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 0.2rem rgba(184, 134, 139, 0.25);
+}
+
+.form-label {
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+/* Confirmation page */
+.confirmation-card {
+  background: var(--white);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-soft);
+  padding: 2rem;
+  border-left: 4px solid var(--primary-accent);
+}
+
+.status-badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.status-pending { background: #fff3cd; color: #856404; }
+.status-approved { background: #d4edda; color: #155724; }
+.status-rejected { background: #f8d7da; color: #721c24; }
+
+/* Contact page */
+.contact-card {
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.contact-card i {
+  color: var(--primary-accent);
+  font-size: 1.5rem;
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(180deg, var(--primary-accent-dark) 0%, #7d5d62 100%);
+  color: var(--white);
+}
+
+.footer a.text-white-50:hover {
+  color: var(--white) !important;
+}
+
+/* Utility */
+.text-primary-accent {
+  color: var(--primary-accent) !important;
+}
+
+.bg-pastel {
+  background-color: var(--secondary-pastel);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+  .hero {
+    padding: 3rem 0 4rem;
+  }
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  :root {
+    --navbar-height: 64px;
+  }
+  .hero {
+    padding: 2rem 0 3rem;
+    border-radius: 0 0 1.5rem 1.5rem;
+  }
+  .booking-form-wrap,
+  .confirmation-card {
+    padding: 1.25rem;
+  }
+}

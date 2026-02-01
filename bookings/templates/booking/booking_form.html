@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="section-title text-center mb-2">Book an Appointment</h1>
+    <p class="section-subtitle text-center mb-4">No login required. Fill in your details and choose a time.</p>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="booking-form-wrap">
+          <form method="post" action="" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="id_guest_name" class="form-label">Name</label>
+                {{ form.guest_name }}
+                {% if form.guest_name.errors %}
+                  <div class="invalid-feedback d-block">{{ form.guest_name.errors.0 }}</div>
+                {% endif %}
+              </div>
+              <div class="col-md-6">
+                <label for="id_guest_phone" class="form-label">Phone</label>
+                {{ form.guest_phone }}
+                {% if form.guest_phone.errors %}
+                  <div class="invalid-feedback d-block">{{ form.guest_phone.errors.0 }}</div>
+                {% endif %}
+              </div>
+              <div class="col-12">
+                <label for="id_service" class="form-label">Service</label>
+                {{ form.service }}
+                {% if form.service.errors %}
+                  <div class="invalid-feedback d-block">{{ form.service.errors.0 }}</div>
+                {% endif %}
+              </div>
+              <div class="col-md-6">
+                <label for="id_date" class="form-label">Date</label>
+                {{ form.date }}
+                {% if form.date.errors %}
+                  <div class="invalid-feedback d-block">{{ form.date.errors.0 }}</div>
+                {% endif %}
+              </div>
+              <div class="col-md-6">
+                <label for="id_time" class="form-label">Time</label>
+                <select id="id_time" name="time" class="form-select" required>
+                  {% if form.time.value %}
+                    <option value="{{ form.time.value|time:'H:i:s' }}" selected>{{ form.time.value|time:'g:i A' }}</option>
+                  {% else %}
+                    <option value="">Select date first</option>
+                  {% endif %}
+                </select>
+                <small class="text-muted d-block mt-1" id="slots-hint">Choose a date to see available times (9:00 AM – 6:00 PM)</small>
+                {% if form.time.errors %}
+                  <div class="invalid-feedback d-block">{{ form.time.errors.0 }}</div>
+                {% endif %}
+              </div>
+              <div class="col-12">
+                <label for="id_guest_message" class="form-label">Message (optional)</label>
+                {{ form.guest_message }}
+                {% if form.guest_message.errors %}
+                  <div class="invalid-feedback d-block">{{ form.guest_message.errors.0 }}</div>
+                {% endif %}
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary-accent btn-lg w-100">
+                  <i class="bi bi-check2-circle me-2"></i>Submit Booking
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% block extra_js %}
+<script>
+  (function() {
+    var dateInput = document.getElementById('id_date');
+    var timeSelect = document.getElementById('id_time');
+    var slotsHint = document.getElementById('slots-hint');
+    var baseUrl = '{{ request.scheme }}://{{ request.get_host }}{% url "booking:available_slots" %}';
+
+    function formatTime(str) {
+      var parts = str.split(':');
+      var h = parseInt(parts[0], 10);
+      var m = parts[1];
+      var ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      return h + ':' + m + ' ' + ampm;
+    }
+
+    function loadSlots() {
+      var dateVal = dateInput && dateInput.value;
+      timeSelect.innerHTML = '<option value="">Loading...</option>';
+      if (!dateVal) {
+        timeSelect.innerHTML = '<option value="">Select date first</option>';
+        slotsHint.textContent = 'Choose a date to see available times (9:00 AM – 6:00 PM)';
+        return;
+      }
+      fetch(baseUrl + '?date=' + encodeURIComponent(dateVal))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          timeSelect.innerHTML = '<option value="">Choose a time</option>';
+          if (data.slots && data.slots.length) {
+            data.slots.forEach(function(slot) {
+              var opt = document.createElement('option');
+              opt.value = slot + ':00';
+              opt.textContent = formatTime(slot);
+              timeSelect.appendChild(opt);
+            });
+            slotsHint.textContent = data.slots.length + ' available slot(s) for this date.';
+          } else {
+            slotsHint.textContent = 'No available slots for this date. Try another day.';
+          }
+        })
+        .catch(function() {
+          timeSelect.innerHTML = '<option value="">Select date first</option>';
+          slotsHint.textContent = 'Could not load slots. You can still pick a time (9:00–18:00).';
+        });
+    }
+
+    if (dateInput && timeSelect) {
+      dateInput.addEventListener('change', loadSlots);
+      if (dateInput.value) loadSlots();
+    }
+  })();
+</script>
+{% endblock %}
+{% endblock %}

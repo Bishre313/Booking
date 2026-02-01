@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="section-title text-center mb-2">Our Services</h1>
+    <p class="section-subtitle text-center mb-5">Browse by category and book your preferred treatment.</p>
+
+    {% for category in categories %}
+    <div class="mb-5" id="{{ category.slug }}">
+      <h2 class="h4 fw-semibold mb-3">{{ category.name }}</h2>
+      {% if category.description %}
+        <p class="text-muted small mb-3">{{ category.description }}</p>
+      {% endif %}
+      <div class="row g-3">
+        {% for service in category.services.all %}
+          {% if service.is_active %}
+          <div class="col-md-6 col-lg-4">
+            <div class="card card-service h-100">
+              <div class="card-body">
+                <h5 class="card-title">{{ service.name }}</h5>
+                <p class="card-text small">{{ service.description|truncatewords:20|default:"—" }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  {% if service.duration_minutes %}
+                    <span class="text-muted small"><i class="bi bi-clock me-1"></i>{{ service.duration_minutes }} min</span>
+                  {% endif %}
+                  {% if service.price %}
+                    <span class="fw-semibold text-primary-accent">${{ service.price }}</span>
+                  {% endif %}
+                </div>
+                <a href="{% url 'booking:book' %}?service={{ service.id }}" class="btn btn-primary-accent btn-sm mt-2">Book this</a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-center text-muted">No services added yet. Check back soon.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

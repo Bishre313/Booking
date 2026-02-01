@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="section-title text-center mb-2">Contact Us</h1>
+    <p class="section-subtitle text-center mb-5">We'd love to hear from you. Visit us or get in touch.</p>
+
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="contact-card">
+          <i class="bi bi-geo-alt mb-3"></i>
+          <h5 class="fw-semibold">Address</h5>
+          <p class="text-muted mb-0">123 Beauty Lane<br>Your City, ST 12345</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="contact-card">
+          <i class="bi bi-telephone mb-3"></i>
+          <h5 class="fw-semibold">Phone</h5>
+          <p class="text-muted mb-0">+1 (555) 123-4567</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="contact-card">
+          <i class="bi bi-envelope mb-3"></i>
+          <h5 class="fw-semibold">Email</h5>
+          <p class="text-muted mb-0">hello@serenitysalon.example.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="booking-form-wrap">
+          <h5 class="mb-4">Hours</h5>
+          <ul class="list-unstyled text-muted">
+            <li class="d-flex justify-content-between py-2 border-bottom"><span>Monday – Friday</span><span>9:00 AM – 7:00 PM</span></li>
+            <li class="d-flex justify-content-between py-2 border-bottom"><span>Saturday</span><span>9:00 AM – 5:00 PM</span></li>
+            <li class="d-flex justify-content-between py-2"><span>Sunday</span><span>Closed</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

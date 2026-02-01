@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="section-title text-center mb-2">Booking Confirmation</h1>
+    <p class="section-subtitle text-center mb-4">Your appointment request has been received.</p>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        {% if appointment %}
+        <div class="confirmation-card">
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-check-circle-fill text-success fs-1 me-3"></i>
+            <div>
+              <h5 class="mb-1">Thank you, {{ appointment.guest_name }}!</h5>
+              <p class="text-muted mb-0">We've received your booking request.</p>
+            </div>
+          </div>
+          <hr>
+          <h6 class="fw-semibold mb-2">Appointment details</h6>
+          <ul class="list-unstyled mb-0">
+            <li><strong>Service:</strong> {{ appointment.service.name }}</li>
+            <li><strong>Date:</strong> {{ appointment.date|date:"l, F j, Y" }}</li>
+            <li><strong>Time:</strong> {{ appointment.time|time:"g:i A" }}</li>
+            <li><strong>Phone:</strong> {{ appointment.guest_phone }}</li>
+            {% if appointment.guest_message %}
+              <li><strong>Message:</strong> {{ appointment.guest_message }}</li>
+            {% endif %}
+            <li class="mt-2">
+              <span class="status-badge status-{{ appointment.status }}">{{ appointment.get_status_display }}</span>
+            </li>
+          </ul>
+          <p class="text-muted small mt-3 mb-0">
+            We'll confirm your appointment shortly. If you have questions, call us or visit our <a href="{% url 'contact' %}">Contact</a> page.
+          </p>
+        </div>
+        {% else %}
+        <div class="confirmation-card text-center">
+          <p class="mb-0">No booking found. You can <a href="{% url 'booking:book' %}">book a new appointment</a> here.</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
